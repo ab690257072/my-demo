@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css3-图片预览</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .ct {
+            width: 300px;
+            margin: 100px auto;
+        }
+        .my-img {
+            width: 300px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        .my-img:hover {
+            opacity: .7;
+            cursor: pointer;
+        }
+        .model {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .7);
+            padding-top: 30px;
+            z-index: 1000;
+            text-align: center;
+        }
+        .model .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            color: #fff;
+            font-size: 110%;
+            transition: .3s;
+        }
+        .close:hover {
+            color: #eee;
+            cursor: pointer;
+        }
+        .img01 {
+            width: 80%;
+            max-width: 700px;
+            cursor: pointer;
+            -webkit-animation: zoom .5s ease;
+        }
+        .caption {
+            padding: 10px 0;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            -webkit-animation: zoom .5s ease;
+        }
+        @-webkit-keyframes zoom {
+            0% {transform: scale(0);}
+            100% {transform: scale(1);}
+        }
+    </style>
+</head>
+<body>
+    <div class="ct">
+        <img src="http://ocx7m1fc8.bkt.clouddn.com/16-12-22/30647690-file_1482387466583_147cc.jpg" alt="This is my demo" class="my-img">
+    </div>
+    <div class="model">
+        <span class="close">&times;</span>
+        <img class="img01">
+        <div class="caption"></div>
+    </div>
+    <script>
+        var myImg = document.querySelector('.my-img'),
+            model = document.querySelector('.model'),
+            img01 = document.querySelector('.img01'),
+            close = document.querySelector('.close'),
+            caption = document.querySelector('.caption');
+        myImg.addEventListener('click', function() {
+            model.style.display = 'block';
+            img01.setAttribute('src', this.src);
+            img01.setAttribute('alt', this.alt);
+            caption.innerHTML = this.alt;
+        });
+        close.addEventListener('click', function() {
+            model.style.display = 'none';
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>JS时间函数</title>
+</head>
+
+<body>
+    <span>请输入N天前的天数:</span>
+    <input class="days" type="text" placeholder="如:7，即获取7天前的日期">
+    <div class="output"></div>
+    <br>
+    <br>
+    <span>请输入数字日期，转为中文日期：</span>
+    <input type="text" class="num-date" placeholder="如: 2016-08-20">
+    <div class="output2"></div>
+    <br>
+    <br>
+    楼梯有20级，每次走1级或是2级，从底走到顶一共有多少种走法？
+    </div>
+    <input type="text" placeholder="请输入楼梯数" class="steps">
+    <div class="output3"></div>
+    <br>
+    <script>
+    // 获取N天前的天数
+    var days = document.querySelector('.days');
+    var output = document.querySelector('.output');
+    days.addEventListener('change', function() {
+        if (typeof parseInt(days.value) != 'number') return;
+        output.innerHTML = getLastNDays(days.value);
+    });
+
+    function getLastNDays(t) {
+        var t1 = new Date();
+        var t2 = new Date(new Date() - (t * 24 * 60 * 60 * 1000));
+        var str = t2.toLocaleDateString();
+        var arr = str.split('/');
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].length === 1) {
+                arr[i] = '0' + arr[i];
+            }
+        }
+        return arr.join('-');
+    }
+    // 除夕倒计时
+    var str = getIntv("2016-08-28");
+    var header = document.createElement('h3');
+    header.innerHTML = str;
+    document.body.appendChild(header);
+
+    function getIntv(time) {
+        var t1 = new Date(),
+            t2 = new Date(time),
+            t = t1 - t2,
+            days = Math.floor(t / (1000 * 60 * 60 * 24)),
+            hours = Math.floor(t / (1000 * 60 * 60)),
+            minutes = Math.floor(t / (1000 * 60)),
+            seconds = Math.floor(t / (1000)),
+            str = '除夕倒计时：距离除夕还有 ' + days + ' 天 ' + (hours - days * 24) + ' 小时 ' + (minutes - hours * 60) + ' 分 ' + (seconds - minutes * 60) + ' 秒';
+        return str;
+    }
+    // 数字日期转为中文日期
+    var numDate = document.querySelector('.num-date');
+    var output2 = document.querySelector('.output2');
+    numDate.addEventListener('change', function() {
+        var str = numDate.value;
+        output2.innerHTML = getChsDate(str);
+    });
+
+    function getChsDate(t) {
+        var T = t.split('-'),
+            chs = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'],
+            years = chs[T[0][0]] + chs[T[0][1]] + chs[T[0][2]] + chs[T[0][3]],
+            mons, days, str;
+        T[1][0] === '0' ? mons = chs[T[1][1]] : mons = chs[T[1][0]] + chs[T[1][1]];
+        T[2][0] === '0' ? days = chs[T[2][1]] : days = chs[T[2][0]] + chs[T[2][1]];
+        return str = years + '年' + mons + '月' + days + '日';
+    }
+    // 计时器
+    var Runtime = (function() {
+        var startTime,
+            endTime,
+            getTime;
+        var obj = {
+            start: function() {
+                startTime = Date.now();
+                return startTime;
+            },
+            end: function() {
+                endTime = Date.now();
+                return endTime;
+            },
+            get: function() {
+                getTime = endTime - startTime;
+                return getTime;
+            }
+        };
+        return obj;
+    }());
+    Runtime.start();
+    for (var i = 0; i < 1000; i++) {
+        var j = 0;
+        console.log(i);
+    }
+    Runtime.end();
+    console.log(Runtime.get());
+    // 递归
+    var steps = document.querySelector('.steps'),
+        output3 = document.querySelector('.output3');
+    steps.addEventListener('change', function() {
+        if (typeof parseInt(steps.value) != 'number') return;
+        output3.innerHTML = fn(steps.value);
+    });
+
+    function fn(n) {
+        var result = 0;
+        if (n === 1) {
+            result = 1;
+        } else if (n === 2) {
+            result = 2;
+        } else {
+            result = fn(n - 1) + fn(n - 2);
+        }
+        return result;
+    }
+    </script>
+</body>
+
+</html>

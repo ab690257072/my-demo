@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>正则匹配</title>
+</head>
+
+<body>
+    <script>
+    // 删除字符串两端空格
+    function trim(str) {
+        return str.replace(/^\s+|\s+$/g, "");
+    }
+    // 密码验证
+    function isValidPassword(str) {
+        var reg = /^\w{6,20}$/;
+        if (reg.test(str)) {
+            if (/(^\d+$)|(^_+$)|(^[a-z]+$)|(^[A-Z]+$)/.test(str)) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+    //添加删除class
+    function addClass(el, cls) {
+        el.className += " " + cls;
+    }
+
+    function hasClass(el, cls) {
+        var reg = new RegExp("(\\s|^)" + cls + "(\\s|$)", "g");
+        return reg.test(el.className);
+    }
+
+    function removeClass(el, cls) {
+        var reg = new RegExp("(\\s|^)" + cls + "(\\s|$)", "g");
+        return el.className.replace(reg, "");
+    }
+    // 用户名验证
+    function isValidUserName(str) {
+        var reg = /^[a-zA-Z][\w]{5,19}$/;
+        return reg.test(str);
+    }
+    // 电话号验证
+    function isPhoneNum(str) {
+        var reg = /^1\d{10}$/;
+        return reg.test(str);
+    }
+    // 筛选正确语法颜色
+    var re = /[\s:]#[0-9a-fA-F]{6}/g;
+    subj = "color: #121212; background-color: #AA00ef; width: 12px; bad-colors: f#fddee #fd2 ";
+    // 筛选引号中名字
+    var str = 'hello  "hunger" , hello "world"';
+    var pat = /".*?"/g;
+    // 获取注释内容
+    // 非贪婪模式
+    str1 = '.. <!-- My -- comment \n test --> .. <!----> .. ';
+    reg1 = /<!--(.|\n)*?-->/g;
+    // 贪婪模式
+    str2 = '.. <!-- My -- comment \n test --> .. <!----> .. ';
+    reg2 = /<!--[^>]*-->/g;
+    // 获取html标签
+    // 非贪婪模式
+    reg = /<[a-z].*?>/g;
+    var str = '<> <a href="/"> <input type="radio" checked> <b>';
+    str.match(reg);
+    // 贪婪模式
+    reg = /<[^>]+>/g;
+    var str = '<> <a href="/"> <input type="radio" checked> <b>';
+    str.match(reg);
+    // 邮箱验证
+    function isEmall(str) {
+        var reg = /^[\w\.-]+@{1}[\w-]+\.[\w\.-]+$/;
+        return reg.test(str);
+    }
+    </script>
+</body>
+
+</html>

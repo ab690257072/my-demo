@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>添加dom</title>
+</head>
+
+<body>
+    <ul class="ct">
+        <li>这里是</li>
+        <li>饥人谷</li>
+        <li>前端6班</li>
+    </ul>
+    <input type="text" class="ipt-add-content" placeholder="添加内容">
+    <button class="btn-add-start">开头添加</button>
+    <button class="btn-add-end">结尾添加</button>
+    <hr>
+    <ul class="ct2">
+        <li data-img="img/1.jpg">鼠标悬停查看图片1</li>
+        <li data-img="img/2.jpg">鼠标悬停查看图片2</li>
+        <li data-img="img/3.jpg">鼠标悬停查看图片3</li>
+    </ul>
+    <div class="img-preview"></div>
+    <script>
+    var ct = document.getElementsByClassName('ct'),
+        addContent = document.getElementsByClassName('ipt-add-content'),
+        btnAddStart = document.getElementsByClassName('btn-add-start'),
+        btnAddEnd = document.getElementsByClassName('btn-add-end'),
+        txt = '';
+    btnAddStart[0].addEventListener('click', function(e) {
+        if (addContent[0].value === '') {
+            alert('请输入内容');
+            return;
+        } else {
+            txt = addContent[0].value;
+            var itemTxt = document.createTextNode(txt);
+            var newItem = document.createElement('li');
+            newItem.appendChild(itemTxt);
+            ct[0].insertBefore(newItem, ct[0].children[0]);
+        }
+    });
+    btnAddEnd[0].addEventListener('click', function() {
+        if (addContent[0].value === '') {
+            alert('请输入内容');
+            return;
+        } else {
+            txt = addContent[0].value;
+            var itemTxt = document.createTextNode(txt);
+            var newItem = document.createElement('li');
+            newItem.appendChild(itemTxt);
+            ct[0].appendChild(newItem, ct[0].children[0]);
+        }
+    });
+    ct[0].addEventListener('click', function(e) {
+        console.log(e.target.innerHTML);
+    });
+    // DOM事件
+    var ct2 = document.querySelector('.ct2'),
+        imgPreview = document.querySelector('.img-preview'),
+        dataImg = document.createElement('img');
+    ct2.addEventListener('mouseover', function(event) {
+        var txt = event.target.getAttribute('data-img');
+        dataImg.setAttribute('src', txt);
+        imgPreview.appendChild(dataImg);
+    });
+    </script>
+</body>
+
+</html>

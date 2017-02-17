@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>css3动画demo</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            margin: 20px;
+            border: 1px solid;
+            display: inline-block;
+            text-align: center;
+            line-height: 200px;
+        }
+        .div1 {
+            border-radius: 20px;
+        }
+        .div2 {
+            border-radius: 50%;
+        }
+        .div3 {
+            box-shadow: 5px 5px 5px #333;
+        }
+        .div4, .div5, .div6 {
+            transition: all .5s;
+        }
+        .div4:hover {
+            transform: scale(1.5,1.5);
+        }
+        .div5:hover {
+            transform: translate(100px, 100px);
+        }
+        .div6:hover {
+            -webkit-transform:rotate(-90deg);
+        }
+        .div7 {
+            background: repeating-linear-gradient(-45deg,cadetblue, cadetblue 8px, #fff 8px, #fff 16px);
+        }
+        .div8 {
+            transition: all 2s;
+        }
+        .div8:hover {
+            background: hotpink;
+        }
+        .div9:hover {
+            -webkit-animation: myFirst 5s;
+        }
+        @-webkit-keyframes myFirst {
+            0% {background: #fff;}
+            25% {background: orange; -webkit-transform: rotate(30deg);}
+            50% {background: palevioletred; -webkit-transform: rotate(60deg);}
+            100% {background: greenyellow; border-radius: 50%; -webkit-transform: rotate(90deg);}
+        }
+    </style>
+</head>
+
+<body>
+    <div class="div1">圆角</div>
+    <div class="div2">圆形</div>
+    <div class="div3">阴影</div>
+    <div class="div4">放大</div>
+    <div class="div5">偏移</div>
+    <div class="div6">旋转</div>
+    <div class="div7">背景渐变</div>
+    <div class="div8">过渡效果</div>
+    <div class="div9">动画</div>
+</body>
+
+</html>

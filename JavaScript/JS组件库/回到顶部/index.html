@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>go-top</title>
+    <style type="text/css">
+    html,
+    body,
+    div {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .test {
+        margin: 30px auto;
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+        border: 3px solid;
+        background-color: rgba(180, 255, 0, 0.5);
+    }
+    
+    .go-top {
+        position: fixed;
+        bottom: 50px;
+        right: 50px;
+        width: 70px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        border: 3px solid;
+        background-color: rgba(0, 0, 255, 0.5);
+        font-weight: bold;
+        cursor: pointer;
+        display: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="test test1">test1</div>
+    <div class="test test2">test2</div>
+    <div class="test test3">test3</div>
+    <div class="test test4">test4</div>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+    // jQuery方法
+    // var $goTop = $('<div class="go-top">回到顶部</div>');
+    // $('body').append($goTop);
+    // $(window).on('scroll', function() {
+    //   var scrollTop = $(this).scrollTop();
+    //   if(scrollTop > 100) {
+    //     $goTop.show();
+    //   } else {
+    //     $goTop.hide();
+    //   }
+    // });
+    // $goTop.on('click', function() {
+    //   $(window).scrollTop(0);
+    // });
+
+    // 构造函数模式封装方法
+
+    // function GoTop(ct, target) {
+    //   this.ct = ct;
+    // }
+    // GoTop.prototype = {
+    //   constructor: GoTop,
+    //   bindEvent: function () {
+    //     var target = this.target;
+    //     target.addEventListener('click', function () {
+    //       document.body.scrollTop = 0;
+    //     });
+    //     window.addEventListener('scroll', function () {
+    //       if (document.body.scrollTop >= 200) {
+    //         target.className += ' show';
+    //       } else if (document.body.scrollTop < 200) {
+    //         target.className = 'go-top';
+    //       }
+    //     });
+    //   },
+    //   createNode: function () {
+    //     var node = document.createElement('div');
+    //     node.innerHTML = '回到顶部';
+    //     node.className = 'go-top';
+    //     this.target = this.ct.appendChild(node);
+    //   }
+    // };
+
+    // var ct1 = document.getElementsByClassName('ct1')[0];
+    // var goTop1 = new GoTop(ct1);
+    // goTop1.createNode();
+    // goTop1.bindEvent();
+
+
+    // json封装方法
+    var goTop = {
+        init: function() {
+            if ($('.go-top').length > 0) {
+                return;
+            } else {
+                var $goTop = $('<div class="go-top">回到顶部</div>');
+                $('body').append($goTop);
+                this.$goTop = $goTop;
+                this.bind();
+            }
+        },
+        bind: function() {
+            var self = this;
+            $(window).on('scroll', function() {
+                var scrollTop = $('body').scrollTop();
+                if (scrollTop > 100) {
+                    self.$goTop.show();
+                } else {
+                    self.$goTop.hide();
+                }
+            });
+            $(self.$goTop).on('click', function() {
+                $('body').scrollTop(0);
+            });
+        }
+    }
+    goTop.init();
+
+    // 有缓冲地回到顶部
+    // goTop() {
+    //     var timer = setInterval(function() {
+    //         var osTop = document.documentElement.scrollTop || document.body.scrollTop;
+    //         var speed = Math.floor(-osTop / 60);
+    //         document.documentElement.scrollTop = document.body.scrollTop = osTop + speed;
+    //         var isTop = true;
+    //         if (osTop == 0) {
+    //             clearInterval(timer);
+    //         }
+    //     });
+    // }
+    </script>
+</body>
+
+</html>
