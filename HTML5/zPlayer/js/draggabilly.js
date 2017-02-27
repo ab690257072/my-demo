@@ -1,10 +1,3 @@
-/*!
- * Draggabilly PACKAGED v2.1.1
- * Make that shiz draggable
- * http://draggabilly.desandro.com
- * MIT license
- */
-
 ! function(t, i) {
     "function" == typeof define && define.amd ? define("jquery-bridget/jquery-bridget", ["jquery"], function(e) {
         i(t, e)
