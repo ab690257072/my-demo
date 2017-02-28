@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>search-list</title>
@@ -7,13 +8,15 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <style>
-        .gray{
+        .gray {
             background: #ccc;
         }
+        
         #box {
             width: 480px;
             margin: 20px auto;
         }
+        
         input {
             width: 480px;
             height: 30px;
@@ -21,96 +24,94 @@
             border-radius: 5px;
             outline: none;
         }
+        
         body {
             background-image: url(http://ocx7m1fc8.bkt.clouddn.com/experience-create-01.jpg);
             background-size: cover;
             font-family: "Microsoft YaHei", sans-serif;
         }
+        
         h1 {
             text-align: center;
             color: #666;
         }
+        
         ul {
             margin: 0;
             padding: 15px;
-           list-style: none;
-           text-align: left; 
+            list-style: none;
+            text-align: left;
+        }
+        
+        ul li:hover {
+            background: #ccc;
+            cursor: pointer;
         }
     </style>
     <script src="../lib/vue.js"></script>
     <script src="../lib/vue-resource.js"></script>
     <script>
-        window.onload=function(){
+        window.onload = function () {
             new Vue({
-                el:'body',
-                data:{
-                    myData:[],
-                    t1:'',
-                    now:-1
+                el: 'body',
+                data: {
+                    myData: [],
+                    t1: '',
+                    now: -1
                 },
-                methods:{
-                    get:function(ev){
-                        if(ev.keyCode==38 || ev.keyCode==40)return;
+                methods: {
+                    get: function (ev) {
+                        if (ev.keyCode == 38 || ev.keyCode == 40) return;
 
-                        if(ev.keyCode==13){
-                            window.open('https://www.baidu.com/s?wd='+this.t1);
-                            this.t1='';
+                        if (ev.keyCode == 13) {
+                            window.location.href = 'https://www.baidu.com/s?wd=' + this.t1;
+                            this.t1 = '';
+                            this.now = -1;
                         }
 
-                        this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
-                            wd:this.t1
-                        },{
-                            jsonp:'cb'
-                        }).then(function(res){
-                            this.myData=res.data.s;
-                        },function(){
-                            
+                        this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su', {
+                            wd: this.t1
+                        }, {
+                            jsonp: 'cb'
+                        }).then(function (res) {
+                            this.myData = res.data.s;
+                        }, function () {
+
                         });
                     },
-                    changeDown:function(){
+                    changeDown: function () {
                         this.now++;
-                        if(this.now==this.myData.length)this.now=-1;
-                        this.t1=this.myData[this.now];
+                        if (this.now == this.myData.length) this.now = -1;
+                        this.t1 = this.myData[this.now];
                     },
-                    changeUp:function(){
+                    changeUp: function () {
                         this.now--;
-                        if(this.now==-2)this.now=this.myData.length-1;
-                        this.t1=this.myData[this.now];
+                        if (this.now == -2) this.now = this.myData.length - 1;
+                        this.t1 = this.myData[this.now];
+                    },
+                    toSearch: function (e) {
+                        this.t1 = e.target.innerHTML;
+                        window.location.href = 'https://www.baidu.com/s?wd=' + this.t1;
+                        this.t1 = '';
+                        this.now = -1;
                     }
                 }
             });
         };
     </script>
 </head>
+
 <body>
     <div id="box">
-    <h1>百度下拉列表</h1>
-        <input type="text" v-model="t1" @keyup="get($event)" @keydown.down="changeDown()" @keydown.up.prevent="changeUp()">
+        <h1>百度下拉列表</h1>
+        <input type="text" v-model="t1" @keyup="get($event)" @keydown.down="changeDown" @keydown.up.prevent="changeUp">
         <ul>
-            <li v-for="value in myData" :class="{gray:$index==now}">
+            <li v-for="value in myData" :class="{gray:$index==now}" @click="toSearch">
                 {{value}}
             </li>
         </ul>
         <p v-show="myData.length==0">暂无数据...</p>
     </div>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
