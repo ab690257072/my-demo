@@ -71,8 +71,6 @@ li {
     position: absolute;
     top: 10px;
     left: -50px;
-    /*margin-bottom: -30px;
-    margin-left: -30px;*/
     height: 30px;
     width: 30px;
     border-radius: 15px;
@@ -80,8 +78,8 @@ li {
     line-height: 32px;
     font-family: iconfont;
     font-size: 20px;
-    color: rgba(170, 170, 170, 0.5);
-    background-color: #000;
+    color: #fff;
+    background-color: #DC3333;
     cursor: pointer;
 }
 #fm .colorful-min {
